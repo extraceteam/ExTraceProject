@@ -50,11 +50,13 @@ public class CustomerEditLoader  extends HttpAsyncTask{
 	@Override
 	public void onStatusNotify(RETURN_STATUS status, String str_response) {
 		Log.i("onStatusNotify", "onStatusNotify: " + str_response);
+		//Log.d("RUAAAAAAA", "onStatusNotify ");
 	}
 
 	public void LoadCustomer(int id)
 	{
 		url += "getCustomerInfo/"+ id + "?_type=json";
+		//Log.d("RUAAAAAAA", "LoadCustomer: "+url);
 		try {
 			execute(url, "GET");
 		} catch (Exception e) {

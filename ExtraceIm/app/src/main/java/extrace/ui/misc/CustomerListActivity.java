@@ -15,6 +15,7 @@ import android.support.v4.view.MenuItemCompat;
 
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -126,38 +127,39 @@ public class CustomerListActivity extends AppCompatActivity {
 			MenuItem item = menu.findItem(R.id.action_search);
 			final SearchView searchView = (SearchView) item.getActionView();
 			if (searchView != null) {
+				SearchViewCompat.setOnQueryTextListener(searchView,
+						new SearchViewCompat.OnQueryTextListenerCompat() {
+							@Override
+							public boolean onQueryTextChange(String newText) {
+								// Called when the action bar search text has
+								// changed. Since this
+								// is a simple array adapter, we can just have
+								// it do the filtering.
+								Log.d("onQueryTextChange", "onQueryTextChange: "+newText);
+								return true;
+							}
 
-//				SearchViewCompat.setOnQueryTextListener(searchView,
-//						new OnQueryTextListenerCompat() {
-//							@Override
-//							public boolean onQueryTextChange(String newText) {
-//								// Called when the action bar search text has
-//								// changed. Since this
-//								// is a simple array adapter, we can just have
-//								// it do the filtering.
-//								return true;
-//							}
-//
-//							@Override
-//							public boolean onQueryTextSubmit(String query) {
-//								if (!TextUtils.isEmpty(query)) {
-//									RefreshList(query);
-//									SearchViewCompat.setQuery(searchView, null,true);
-//								}
-//								return true;
-//							}
-//						});
-//				SearchViewCompat.setOnCloseListener(searchView,
-//						new OnCloseListenerCompat() {
-//							@Override
-//							public boolean onClose() {
-//								if (!TextUtils.isEmpty(SearchViewCompat.getQuery(searchView))) {
-//									SearchViewCompat.setQuery(searchView, null,true);
-//								}
-//								return true;
-//							}
-//
-//						});
+							@Override
+							public boolean onQueryTextSubmit(String query) {
+								if (!TextUtils.isEmpty(query)) {
+									Log.d("onQueryTextSubmit", "onQueryTextSubmit: "+query);
+									RefreshList(query);
+									SearchViewCompat.setQuery(searchView, null,true);
+								}
+								return true;
+							}
+						});
+				SearchViewCompat.setOnCloseListener(searchView,
+						new SearchViewCompat.OnCloseListenerCompat() {
+							@Override
+							public boolean onClose() {
+								if (!TextUtils.isEmpty(SearchViewCompat.getQuery(searchView))) {
+									SearchViewCompat.setQuery(searchView, null,true);
+								}
+								return true;
+							}
+
+						});
 				MenuItemCompat.setActionView(item, searchView);
 			}
 	    }

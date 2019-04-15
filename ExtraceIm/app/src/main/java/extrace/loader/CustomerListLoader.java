@@ -30,7 +30,7 @@ public class CustomerListLoader extends HttpAsyncTask {
 		url = ((ExTraceApplication)context.getApplication()).getMiscServiceUrl();
 		SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
 		url = settings.getString("ServerUrl", "");
-		if(url == null || url.length() == 0)
+		if(true)
 		{
 			url = "http://192.168.43.124:8080/TestCxfHibernate/REST/Misc/";	//把这个改成泥的TOMCAT主机的URL
 			SharedPreferences.Editor editor = settings.edit();
@@ -78,7 +78,9 @@ public class CustomerListLoader extends HttpAsyncTask {
 
 	public void LoadCustomerListByName(String name)
 	{
-		url += "getCustomerListByName/"+ name + "?_type=json";
+		//url += "getCustomerListByName/"+ name + "?_type=json";
+		url += "getCustomerInfo/"+ name + "?_type=json";
+		Log.d("getCustomerListByName", "LoadCustomerListByName: "+url);
 		try {
 			execute(url, "GET");
 		} catch (Exception e) {
