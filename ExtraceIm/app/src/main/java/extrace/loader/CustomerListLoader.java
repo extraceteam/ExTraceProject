@@ -3,6 +3,7 @@ package extrace.loader;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ public class CustomerListLoader extends HttpAsyncTask {
 
 	private static final String PREFS_NAME = "ExTrace.cfg";
 	String url;// = "http://192.168.43.124:8080/TestCxfHibernate/REST/Misc/";
+	//String url = "http://192.168.43.124:8080/TestCxfHibernate/REST/Misc/";
 	IDataAdapter<List<CustomerInfo>> adapter;
 	private Activity context;
 	
@@ -30,6 +32,13 @@ public class CustomerListLoader extends HttpAsyncTask {
 		url = ((ExTraceApplication)context.getApplication()).getMiscServiceUrl();
 		SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
 		url = settings.getString("ServerUrl", "");
+		CharSequence text = "Hello toast!";
+		int duration = Toast.LENGTH_SHORT;
+
+		Toast toast = Toast.makeText(context, url, duration);
+		toast.show();
+		Log.d("bbbb",url);
+
 		if(true)
 		{
 			url = "http://192.168.43.124:8080/TestCxfHibernate/REST/Misc/";	//把这个改成泥的TOMCAT主机的URL
@@ -38,7 +47,7 @@ public class CustomerListLoader extends HttpAsyncTask {
 			editor.commit();
 		}
 	}
-	
+
 	@Override
 	public void onDataReceive(String class_data, String json_data) {
 		if(json_data.equals("Deleted")){
@@ -78,8 +87,8 @@ public class CustomerListLoader extends HttpAsyncTask {
 
 	public void LoadCustomerListByName(String name)
 	{
-		//url += "getCustomerListByName/"+ name + "?_type=json";
-		url += "getCustomerInfo/"+ name + "?_type=json";
+		url += "getCustomerListByName/"+ name + "?_type=json";
+		//url += "getCustomerInfo/"+ name + "?_type=json";
 		Log.d("getCustomerListByName", "LoadCustomerListByName: "+url);
 		try {
 			execute(url, "GET");

@@ -79,7 +79,7 @@ public class CustomerListActivity extends AppCompatActivity {
             // Create an empty adapter we will use to display the loaded data.
             mAdapter = new CustomerListAdapter(new ArrayList<CustomerInfo>(), this.getActivity());
             setListAdapter(mAdapter);
-
+			Log.d("madapter", "onActivityCreated: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE); 
 
             registerForContextMenu(getListView());	//getListView().setLongClickable(true);
